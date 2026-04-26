@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewpot" content="width=device-width", initial-scale="1.0"/>
+    <title>LAGOS - The city that never sleeps</title>
+    <!-- Google Fonts: Bebas Neue (display) + Outfit (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-logo">LOS</div>
+    <ul class="navbar-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#highlights">Highlights</a></li>
+      <li><a href="#culture">Culture</a></li>
+      <li><a href="#facts">Facts</a></li>
+    </ul>
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="closeMobileMenu()">About</a>
+    <a href="#highlights" onclick="closeMobileMenu()">Highlights</a>
+    <a href="#culture" onclick="closeMobileMenu()">Culture</a>
+    <a href="#facts" onclick="closeMobileMenu()">Facts</a>
+  </div>
+
+  <!-- ── HERO -->
+  <section class="hero">
+    <div class="hero-bg-text">LAGOS</div>
+    <div class="hero-content">
+      <div class="hero-tag">Nigeria's Heartbeat</div>
+      <h1 class="hero-title">
+        The City<br />
+        <span class="hero-accent">That Never</span><br />
+        Sleeps.
+      </h1>
+      <p class="hero-sub">
+        20 million stories. One relentless energy. Welcome to Lagos —
+        Africa's most electric city.
+      </p>
+      <a href="#about" class="hero-btn">Explore the City</a>
+    </div>
+    <div class="hero-scroll-hint">scroll ↓</div>
+  </section>
+
+  <!-- ── ABOUT  -->
+  <section class="about-section" id="about">
+    <div class="about-grid">
+      <div class="about-left">
+        <span class="section-tag">01 — About</span>
+        <h2 class="section-title">Africa's<br /><span class="accent">Megacity</span></h2>
+        <div class="about-divider"></div>
+        <p class="about-text">
+          Lagos is Nigeria's largest city and the economic capital of Africa's
+          most populous nation. Sitting on the Atlantic coast, it is a sprawling
+          metropolis of contrasts — gleaming skyscrapers beside colourful
+          markets, Afrobeats echoing through traffic-jammed streets, and a
+          creative energy that is reshaping the entire continent.
+        </p>
+        <p class="about-text">
+          From the bustle of Lagos Island to the beaches of Victoria Island,
+          from the artistry of Yaba to the commerce of Apapa — Lagos is not
+          just a city. It is a force of nature.
+        </p>
+      </div>
+      <div class="about-right">
+        <div class="about-img-card">
+          <div class="about-img-inner">
+            <!-- Visual card with city illustration using CSS -->
+            <div class="city-illustration">
+              <div class="city-sky"></div>
+              <div class="city-buildings">
+                <div class="building b1"></div>
+                <div class="building b2"></div>
+                <div class="building b3"></div>
+                <div class="building b4"></div>
+                <div class="building b5"></div>
+                <div class="building b6"></div>
+              </div>
+              <div class="city-water"></div>
+              <div class="city-label">Lagos Island</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-stat-card">
+          <span class="stat-number">20M+</span>
+          <span class="stat-label">Population</span>
+        </div>
+        <div class="about-stat-card stat-right">
+          <span class="stat-number">#1</span>
+          <span class="stat-label">African Economy</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HIGHLIGHTS  -->
+  <section class="highlights-section" id="highlights">
+    <div class="highlights-header">
+      <span class="section-tag">02 — Highlights</span>
+      <h2 class="section-title">Must-See<br /><span class="accent">Lagos</span></h2>
+    </div>
+    <div class="highlights-grid">
+
+      <div class="highlight-card hc-large">
+        <div class="hc-bg hc-bg-1"></div>
+        <div class="hc-content">
+          <span class="hc-icon">🌊</span>
+          <h3 class="hc-title">Tarkwa Bay Beach</h3>
+          <p class="hc-desc">A hidden lagoon beach accessible only by boat — Lagos's most serene escape from the city noise.</p>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="hc-bg hc-bg-2"></div>
+        <div class="hc-content">
+          <span class="hc-icon">🎨</span>
+          <h3 class="hc-title">Nike Art Gallery</h3>
+          <p class="hc-desc">Four floors of Nigerian art, textiles, and culture in the heart of Lekki.</p>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="hc-bg hc-bg-3"></div>
+        <div class="hc-content">
+          <span class="hc-icon">🏛️</span>
+          <h3 class="hc-title">National Museum</h3>
+          <p class="hc-desc">Home to ancient Benin bronzes and artefacts tracing Nigeria's rich civilisations.</p>
+        </div>
+      </div>
+
+      <div class="highlight-card">
+        <div class="hc-bg hc-bg-4"></div>
+        <div class="hc-content">
+          <span class="hc-icon">🛍️</span>
+          <h3 class="hc-title">Balogun Market</h3>
+          <p class="hc-desc">The beating commercial heart of Lagos Island — a sensory overload of colour, sound, and trade.</p>
+        </div>
+      </div>
+
+      <div class="highlight-card hc-wide">
+        <div class="hc-bg hc-bg-5"></div>
+        <div class="hc-content">
+          <span class="hc-icon">🌉</span>
+          <h3 class="hc-title">Third Mainland Bridge</h3>
+          <p class="hc-desc">At 11.8km, one of the longest bridges in Africa — connecting the mainland to the island across Lagos Lagoon with breathtaking views at sunrise.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── CULTURE -->
+  <section class="culture-section" id="culture">
+    <div class="culture-inner">
+      <span class="section-tag light-tag">03 — Culture</span>
+      <h2 class="section-title light-title">Where<br /><span class="accent">Culture</span><br />is Born</h2>
+      <div class="culture-cards">
+
+        <div class="culture-card">
+          <div class="culture-icon">🎵</div>
+          <h3 class="culture-card-title">Afrobeats</h3>
+          <p class="culture-card-text">Lagos gave the world Afrobeats. From Fela Kuti's Shrine to Burna Boy's sold-out arenas — music runs through Lagos's veins like blood.</p>
+        </div>
+
+        <div class="culture-card">
+          <div class="culture-icon">🍛</div>
+          <h3 class="culture-card-title">Food & Flavour</h3>
+          <p class="culture-card-text">Jollof rice debates, suya smoke at midnight, fresh pepper soup by the lagoon — Lagos food is an experience, not just a meal.</p>
+        </div>
+
+        <div class="culture-card">
+          <div class="culture-icon">👗</div>
+          <h3 class="culture-card-title">Fashion Capital</h3>
+          <p class="culture-card-text">Lagos Fashion Week draws global attention. Ankara prints, aso-ebi styles, and a new generation of designers putting Lagos on the world map.</p>
+        </div>
+
+        <div class="culture-card">
+          <div class="culture-icon">🎬</div>
+          <h3 class="culture-card-title">Nollywood</h3>
+          <p class="culture-card-text">The world's second-largest film industry by volume. Lagos is the creative engine behind thousands of films watched across Africa and beyond.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FACTS -->
+  <section class="facts-section" id="facts">
+    <span class="section-tag">04 — Fast Facts</span>
+    <h2 class="section-title">Lagos<br /><span class="accent">By Numbers</span></h2>
+    <div class="facts-grid">
+      <div class="fact-item">
+        <span class="fact-number">1861</span>
+        <span class="fact-label">Year Lagos became a British colony</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-number">1,171</span>
+        <span class="fact-label">Square kilometres of land area</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-number">$136B</span>
+        <span class="fact-label">GDP — larger than many African nations</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-number">250+</span>
+        <span class="fact-label">Ethnic groups represented in Lagos</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-number">5</span>
+        <span class="fact-label">Divisions: Island, Mainland, Eti-Osa, Badagry, Ikorodu</span>
+      </div>
+      <div class="fact-item">
+        <span class="fact-number">Top 10</span>
+        <span class="fact-label">Fastest-growing cities in the world</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">LOS</div>
+    <p class="footer-text">Lagos, Nigeria — The Centre of Excellence</p>
+    <p class="footer-credit">Built with pride 🇳🇬</p>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('active');
+    }
+
+    // Scroll reveal — adds 'visible' class when elements enter viewport
+    const revealEls = document.querySelectorAll(
+      '.about-left, .about-right, .highlight-card, .culture-card, .fact-item'
+    );
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    revealEls.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

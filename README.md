@@ -40,7 +40,38 @@ While building this project, I learned:
 ## How to Run the Project
 
 1. Download or clone the repository
-2. Open the 'index.html' file in any web browser
+2. Open the "index.html" file in any web browser
+
+#  Lagos — The City That Never Sleeps (Weekend Project)
+
+A responsive webpage about Lagos, Nigeria built with HTML, CSS, and Tailwind CSS.
+
+## Files
+
+lagos-city/
+├── index.html   ← Page structure and content
+└── style.css    ← All custom styles and animations
+
+## How to Run
+1. Keep "index.html" and "style.css" in the same folder
+2. Open "index.html" in any browser
+3. Ensure you have an internet connection (Tailwind and fonts load from CDN)
+
+No installation or terminal commands needed.
+
+## Built With
+- **HTML5** — page structure
+- **CSS3** — custom styles, animations, and responsive layout
+- **Tailwind CSS** — loaded via CDN
+- **Google Fonts** — Bebas Neue (headings) + Outfit (body)
+- **JavaScript** — mobile menu toggle and scroll reveal animations
+
+## Sections
+Navbar → Hero → About → Highlights → Culture → Facts → Footer
+
+## Responsive
+Works on mobile, tablet, and desktop. Hamburger menu activates on screens below 600px.
+
 
 ## Author
 Built by Bamidele

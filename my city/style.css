@@ -1,0 +1,912 @@
+:root {
+  --bg:          #080b14;       
+  --bg-2:        #0d1220;       
+  --bg-3:        #111827;       
+  --accent:      #f97316;       
+  --accent-2:    #fbbf24;       
+  --text:        #f1f5f9;       
+  --text-muted:  #94a3b8;       
+  --border:      rgba(255,255,255,0.07); 
+  --font-display: 'Bebas Neue', sans-serif; 
+  --font-body:    'Outfit', sans-serif;        
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; 
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  overflow-x: hidden; 
+}
+
+/* ── Reusable Typography Classes ─────────────────────────────
+   Used across multiple sections for consistent heading styles.
+   ─────────────────────────────────────────────────────────── */
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  /* clamp() = responsive font size:
+     min 3rem, preferred 7vw, max 5.5rem */
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.light-tag {
+  color: var(--accent-2);
+}
+
+.light-title {
+  color: #ffffff;
+}
+
+/* ── NAVBAR ──────────────────────────────────────────────────
+   Fixed top navigation bar with glassmorphism effect.
+   ─────────────────────────────────────────────────────────── */
+.navbar {
+  position: fixed;             /* Stays at top while scrolling */
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;                /* Above all other content */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(8, 11, 20, 0.85); /* Semi-transparent dark */
+  backdrop-filter: blur(12px); /* Blur the content behind navbar */
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-logo {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  /* Orange glow effect */
+  text-shadow: 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+.navbar-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.navbar-links a {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.navbar-links a:hover {
+  color: var(--accent);
+}
+
+/* Hamburger button — visible only on mobile */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--text);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Hamburger animates to X when active */
+.hamburger.active span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.active span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile slide-down menu */
+.mobile-menu {
+  position: fixed;
+  top: 65px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  background: var(--bg-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  max-height: 0;           /* Hidden by default */
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.mobile-menu.open {
+  max-height: 300px;       /* Expands when .open class is added by JS */
+  padding: 1rem 0;
+}
+
+.mobile-menu a {
+  padding: 0.75rem 2rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.2s, background 0.2s;
+}
+
+.mobile-menu a:hover {
+  color: var(--accent);
+  background: rgba(249,115,22,0.05);
+}
+
+/* ── HERO SECTION ────────────────────────────────────────────
+   Full-viewport landing section with large background text
+   and animated entrance effects.
+   ─────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 8rem 2rem 4rem;
+  /* Multi-layer gradient: orange glow bottom-left, dark everywhere else */
+  background:
+    radial-gradient(ellipse 60% 50% at 10% 90%, rgba(249,115,22,0.15) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 40% at 80% 20%, rgba(251,191,36,0.08) 0%, transparent 50%),
+    var(--bg);
+}
+
+/* Giant background text — decorative only, not read by screen readers */
+.hero-bg-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-display);
+  font-size: clamp(8rem, 22vw, 22rem);
+  letter-spacing: 0.05em;
+  color: transparent;
+  /* Stroke-only text — outline effect */
+  -webkit-text-stroke: 1px rgba(249,115,22,0.08);
+  user-select: none;        /* Can't select this text */
+  pointer-events: none;     /* Doesn't block clicks */
+  white-space: nowrap;
+  animation: bgTextPulse 6s ease-in-out infinite;
+}
+
+@keyframes bgTextPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.hero-content {
+  position: relative;  /* Above the bg text */
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+  animation: heroFadeUp 1s ease both;
+}
+
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  border: 1px solid rgba(249,115,22,0.35);
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  margin-bottom: 1.5rem;
+  animation: heroFadeUp 1s ease 0.1s both;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(4.5rem, 13vw, 11rem);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  animation: heroFadeUp 1s ease 0.2s both;
+}
+
+.hero-accent {
+  color: var(--accent);
+  /* Glowing orange text effect */
+  text-shadow: 0 0 40px rgba(249,115,22,0.4);
+}
+
+.hero-sub {
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
+  font-weight: 300;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+  animation: heroFadeUp 1s ease 0.3s both;
+}
+
+.hero-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  animation: heroFadeUp 1s ease 0.4s both;
+}
+
+.hero-btn:hover {
+  background: #ea6b0f;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(249,115,22,0.3);
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.5;
+  animation: scrollBounce 2s ease infinite;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+
+/* ── ABOUT SECTION ───────────────────────────────────────────
+   Two-column layout: text left, visual card right.
+   ─────────────────────────────────────────────────────────── */
+.about-section {
+  padding: 7rem 2rem;
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+}
+
+.about-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;  /* Two equal columns on desktop */
+  gap: 5rem;
+  align-items: center;
+}
+
+.about-left {
+  /* Scroll reveal: starts hidden, JS adds .visible */
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.about-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.about-divider {
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin-bottom: 1.5rem;
+  border-radius: 2px;
+}
+
+.about-text {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.9;
+  margin-bottom: 1rem;
+}
+
+.about-right {
+  position: relative;
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+}
+
+.about-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* CSS city illustration card */
+.about-img-card {
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  margin-bottom: 1rem;
+}
+
+.about-img-inner {
+  height: 280px;
+  background: linear-gradient(180deg, #0a1628 0%, #0d2040 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* CSS-drawn Lagos skyline illustration */
+.city-illustration {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.city-sky {
+  flex: 1;
+  background: linear-gradient(180deg, #050d1f 0%, #0d2040 60%, #1a3a5c 100%);
+  position: relative;
+}
+
+/* Stars using box-shadow trick */
+.city-sky::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1px 1px at 10% 20%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 30% 10%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 50% 25%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 70% 15%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 30%, #fff 0%, transparent 100%),
+    radial-gradient(1px 1px at 20% 40%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 35%, rgba(255,255,255,0.5) 0%, transparent 100%),
+    radial-gradient(1px 1px at 80% 45%, rgba(255,255,255,0.5) 0%, transparent 100%);
+  opacity: 0.8;
+}
+
+.city-buildings {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 10px;
+  height: 160px;
+}
+
+.building {
+  border-radius: 2px 2px 0 0;
+  position: relative;
+}
+
+/* Each building has unique dimensions and color */
+.b1 { width: 28px; height: 90px;  background: linear-gradient(180deg, #1e3a5f, #152a45); }
+.b2 { width: 40px; height: 130px; background: linear-gradient(180deg, #f97316, #c2570d); } /* Accent building */
+.b3 { width: 35px; height: 110px; background: linear-gradient(180deg, #1a3354, #112238); }
+.b4 { width: 50px; height: 150px; background: linear-gradient(180deg, #243d5e, #162638); }
+.b5 { width: 30px; height: 80px;  background: linear-gradient(180deg, #1e3a5f, #152a45); }
+.b6 { width: 38px; height: 120px; background: linear-gradient(180deg, #1a3354, #0f1e30); }
+
+/* Lit windows using pseudo-elements */
+.building::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 6px;
+  right: 6px;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      180deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(255,220,100,0.3) 8px,
+      rgba(255,220,100,0.3) 10px
+    );
+}
+
+.city-water {
+  height: 40px;
+  background: linear-gradient(180deg, #0a2040, #061525);
+  /* Ripple effect */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 20px,
+      rgba(99,179,237,0.05) 20px,
+      rgba(99,179,237,0.05) 21px
+    ),
+    linear-gradient(180deg, #0a2040, #061525);
+}
+
+.city-label {
+  position: absolute;
+  bottom: 48px;
+  right: 16px;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(249,115,22,0.8);
+  font-weight: 600;
+}
+
+/* Floating stat cards positioned over the image */
+.about-stat-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem 1.25rem;
+}
+
+.about-stat-card:first-of-type {
+  bottom: 3.5rem;
+  left: -1.5rem;
+}
+
+.stat-right {
+  bottom: 7rem;
+  right: -1.5rem;
+}
+
+.stat-number {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--accent);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* ── HIGHLIGHTS SECTION ──────────────────────────────────────
+   Bento-box style grid with large and wide card variants.
+   ─────────────────────────────────────────────────────────── */
+.highlights-section {
+  padding: 7rem 2rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+}
+
+.highlights-header {
+  max-width: 1100px;
+  margin: 0 auto 3rem;
+}
+
+.highlights-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+}
+
+/* Large card spans 2 rows */
+.hc-large {
+  grid-row: span 2;
+}
+
+/* Wide card spans 2 columns */
+.hc-wide {
+  grid-column: span 2;
+}
+
+.highlight-card {
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  min-height: 220px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
+}
+
+.highlight-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger each card's animation */
+.highlight-card:nth-child(1) { transition-delay: 0s; }
+.highlight-card:nth-child(2) { transition-delay: 0.1s; }
+.highlight-card:nth-child(3) { transition-delay: 0.2s; }
+.highlight-card:nth-child(4) { transition-delay: 0.3s; }
+.highlight-card:nth-child(5) { transition-delay: 0.4s; }
+
+.highlight-card:hover {
+  border-color: rgba(249,115,22,0.4);
+}
+
+/* Background of each card — different gradient per card */
+.hc-bg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease;
+}
+
+.highlight-card:hover .hc-bg {
+  transform: scale(1.05); /* Subtle zoom on hover */
+}
+
+.hc-bg-1 { background: linear-gradient(135deg, #0d2040 0%, #0a3d5c 100%); }
+.hc-bg-2 { background: linear-gradient(135deg, #1a1a2e 0%, #2d1b4e 100%); }
+.hc-bg-3 { background: linear-gradient(135deg, #1a0a00 0%, #3d1f00 100%); }
+.hc-bg-4 { background: linear-gradient(135deg, #001a0d 0%, #003d1a 100%); }
+.hc-bg-5 { background: linear-gradient(135deg, #0d0d20 0%, #1a1a3d 100%); }
+
+/* Gradient overlay so text is readable */
+.hc-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(8,11,20,0.9) 0%, transparent 60%);
+}
+
+.hc-content {
+  position: relative;  /* Above the background and overlay */
+  z-index: 2;
+  padding: 1.75rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hc-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.hc-title {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+
+.hc-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* ── CULTURE SECTION ─────────────────────────────────────────
+   Dark accent section with four culture cards.
+   ─────────────────────────────────────────────────────────── */
+.culture-section {
+  padding: 7rem 2rem;
+  background: linear-gradient(135deg, #0f1a0a 0%, #0a0f1e 50%, #1a0f0a 100%);
+  border-top: 1px solid var(--border);
+}
+
+.culture-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.culture-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.culture-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.culture-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.culture-card:nth-child(1) { transition-delay: 0s; }
+.culture-card:nth-child(2) { transition-delay: 0.1s; }
+.culture-card:nth-child(3) { transition-delay: 0.2s; }
+.culture-card:nth-child(4) { transition-delay: 0.3s; }
+
+.culture-card:hover {
+  border-color: rgba(249,115,22,0.3);
+  background: rgba(249,115,22,0.05);
+  transform: translateY(-4px);
+}
+
+.culture-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.culture-card-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  margin-bottom: 0.75rem;
+}
+
+.culture-card-text {
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ── FACTS SECTION ───────────────────────────────────────────
+   Grid of large number stats.
+   ─────────────────────────────────────────────────────────── */
+.facts-section {
+  padding: 7rem 2rem;
+  background: var(--bg-2);
+  border-top: 1px solid var(--border);
+  max-width: 100%;
+}
+
+.facts-section > .section-tag,
+.facts-section > .section-title {
+  max-width: 1100px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.facts-grid {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;             /* 1px gap creates divider lines between cells */
+  background: var(--border); /* The gap color = the divider line color */
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.fact-item {
+  background: var(--bg-2);  /* Covers the gap lines within each cell */
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* Scroll reveal */
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.fact-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fact-item:nth-child(1) { transition-delay: 0s; }
+.fact-item:nth-child(2) { transition-delay: 0.08s; }
+.fact-item:nth-child(3) { transition-delay: 0.16s; }
+.fact-item:nth-child(4) { transition-delay: 0.24s; }
+.fact-item:nth-child(5) { transition-delay: 0.32s; }
+.fact-item:nth-child(6) { transition-delay: 0.4s; }
+
+.fact-number {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.5rem);
+  color: var(--accent);
+  line-height: 1;
+}
+
+.fact-label {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────
+   Simple centered footer.
+   ─────────────────────────────────────────────────────────── */
+.footer {
+  padding: 3rem 2rem;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 2.5rem;
+  letter-spacing: 0.15em;
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.footer-text {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.footer-credit {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.2);
+  margin-top: 0.5rem;
+}
+
+/* ── RESPONSIVE — TABLET (max-width: 900px) ──────────────────
+   Collapse multi-column layouts to fewer columns.
+   ─────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  /* About: stack vertically instead of side-by-side */
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .about-right {
+    transform: none;
+  }
+
+  .stat-right {
+    right: 1rem;
+  }
+
+  /* Highlights: 2 columns instead of 3 */
+  .highlights-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .hc-large {
+    grid-row: span 1;  /* Remove the tall span on tablet */
+  }
+
+  .hc-wide {
+    grid-column: span 2;
+  }
+
+  /* Culture: 2 columns */
+  .culture-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Facts: 2 columns */
+  .facts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── RESPONSIVE — MOBILE (max-width: 600px) ──────────────────
+   Single column everything. Show hamburger. Hide nav links.
+   ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  /* Show hamburger, hide nav links */
+  .hamburger {
+    display: flex;
+  }
+
+  .navbar-links {
+    display: none;
+  }
+
+  /* Hero font adjustments */
+  .hero-title {
+    font-size: clamp(3.5rem, 18vw, 6rem);
+  }
+
+  /* All grids become single column */
+  .highlights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hc-large,
+  .hc-wide {
+    grid-row: span 1;
+    grid-column: span 1;
+  }
+
+  .culture-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .facts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Stat cards repositioned for mobile */
+  .about-stat-card:first-of-type {
+    left: 0;
+    bottom: 3rem;
+  }
+
+  .stat-right {
+    right: 0;
+    bottom: 6rem;
+  }
+}
